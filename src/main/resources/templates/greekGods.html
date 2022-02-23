@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>GreekGods</title>
+</head>
+<body>
+<ul>
+    <li th:each="greekGod : ${greekGods}" th:text="${greekGod}"></li>
+</ul>
+</body>
+</html>
