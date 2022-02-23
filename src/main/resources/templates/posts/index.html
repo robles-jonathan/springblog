@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Posts Index</title>
+</head>
+<body>
+<h2>Posts</h2>
+<table class="table table-striped">
+    <tr>
+        <th>Post</th>
+        <th>Description</th>
+    </tr>
+    <tr th:each="post : ${posts}">
+        <td th:text="${post.title}"></td>
+        <td th:text="${post.body}"></td>
+    </tr>
+</table>
+
+
+    <div class="col-md-6" th:each="post : ${posts}">
+        <h2 th:text="${post.title}"></h2>
+        <p th:text="${post.body}"></p>
+    </div>
+</body>
+</html>
