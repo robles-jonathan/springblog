@@ -15,7 +15,13 @@ public class PostController {
     @GetMapping("/posts")
     public String index(Model model){
         Post postOne = new Post("Post One Title", "This is the body of Post One.");
-        Post postTwo = new Post("Post Two Title", "This is the body of Post Two.");
+        Post postTwo = new Post("Post Two Title", "This is the body of Post Two." +
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda atque dolorem hic incidunt ipsam velit. Architecto aut consequatur dolores earum enim expedita incidunt qui voluptas? Distinctio natus optio quod?\n" +
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda atque dolorem hic incidunt ipsam velit. Architecto aut consequatur dolores earum enim expedita incidunt qui voluptas? Distinctio natus optio quod?\n" +
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda atque dolorem hic incidunt ipsam velit. Architecto aut consequatur dolores earum enim expedita incidunt qui voluptas? Distinctio natus optio quod?\n" +
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda atque dolorem hic incidunt ipsam velit. Architecto aut consequatur dolores earum enim expedita incidunt qui voluptas? Distinctio natus optio quod?\n" +
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda atque dolorem hic incidunt ipsam velit. Architecto aut consequatur dolores earum enim expedita incidunt qui voluptas? Distinctio natus optio quod?\n" +
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda atque dolorem hic incidunt ipsam velit. Architecto aut consequatur dolores earum enim expedita incidunt qui voluptas? Distinctio natus optio quod?\n");
         List<Post> posts = new ArrayList<>();
         posts.add(postOne);
         posts.add(postTwo);
