@@ -18,7 +18,7 @@
                     <p class="card-text" th:text="${post.body}"></p>
                 </div>
                 <div class="card-footer">
-                    <form th:action="@{/posts/{id}/edit(id=${post.id})}" th:method="Post">
+                    <form th:action="@{/posts/{id}/edit(id=${post.id})}" th:method="Get">
                         <span class="float-left">
                             <button type="submit" name="id" class="btn btn-secondary edit-btn"><i
                                     class="fas fa-edit"></i></button>
