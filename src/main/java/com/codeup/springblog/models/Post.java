@@ -29,6 +29,10 @@ public class Post {
         this.body = body;
     }
 
+    public long getId() {
+        return id;
+    }
+
     public String getTitle() {
         return title;
     }

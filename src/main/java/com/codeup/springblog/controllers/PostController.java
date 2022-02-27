@@ -44,5 +44,22 @@ public class PostController {
         postDao.save(post);
         return "redirect:/posts";
     }
-}
+// Could not use @PostMapping
+    @PostMapping("/posts/{id}/edit")
+//    @RequestMapping(path = "/posts/{id}/edit", method = {RequestMethod.GET, RequestMethod.POST})
+    public String editPost(@PathVariable Long id){
+        Post post = postDao.getById(id);
+        post.setTitle("NEW TITLE");
+        post.setBody("NEW BODY");
+        postDao.save(post);
+        return "redirect:/posts";
+    }
 
+// Could not use @PostMapping
+    @PostMapping("/posts/{id}/delete")
+//    @GetMapping("/posts/{id}/delete")
+    public String deletePost(@PathVariable Long id){
+        postDao.deleteById(id);
+        return "redirect:/posts";
+    }
+}
