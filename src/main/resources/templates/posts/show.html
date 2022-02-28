@@ -7,10 +7,32 @@
 </head>
 <body>
 <nav th:replace="partials/navbar :: navbar"></nav>
-<div class="col-md-6">
+
+<div class="container">
     <h1>This is for one post!</h1>
-    <h2 th:text="${post.title}"></h2>
-    <p th:text="${post.body}"></p>
+    <!--    Card -->
+    <div class="card text-white bg-dark h-100">
+        <div class="card-body">
+            <h5 class="card-title text-capitalize" th:text="${post.title}"></h5>
+            <p class="card-text" th:text="${post.body}"></p>
+        </div>
+        <div class="card-footer">
+            <small class="mb-3" th:text="${post.getUser().getEmail()}"></small>
+            <form th:action="@{/posts/{id}/edit(id=${post.id})}" th:method="Get">
+                <span class="float-left">
+                    <button type="submit" name="id" class="btn btn-secondary edit-btn"><i
+                            class="fas fa-edit"></i></button>
+                </span>
+            </form>
+            <span class="float-right">
+                <form th:action="@{/posts/{id}/delete(id=${post.id})}" th:method="Post">
+                    <button type="submit" name="id" class="btn btn-danger delete-btn"><i
+                            class="fas fa-trash-alt"></i></button>
+                </form>
+            </span>
+        </div>
+    </div>
+    <!--    End of Card -->
 </div>
 <footer th:replace="partials/footer :: footer"></footer>
 <th:block th:include="partials/scripts.html :: script"></th:block>

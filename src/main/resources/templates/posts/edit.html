@@ -8,8 +8,8 @@
 <body>
 <nav th:replace="partials/navbar :: navbar"></nav>
 <div class="container">
-    <form th:action="@{/posts/{id}/edit(id=${post.id})}" th:method="Post">
-        <h1>Create a Post</h1>
+    <form th:action="@{/posts/{id}/edit (id=${post.id})}" th:method="Post">
+        <h1>Edit Post</h1>
         <div class="form-group">
             <label for="title">Title</label>
             <input type="text" class="form-control" name="title" id="title" th:value="${post.title}">
