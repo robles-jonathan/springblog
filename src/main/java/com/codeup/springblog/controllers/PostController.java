@@ -45,7 +45,7 @@ public class PostController {
     public String createPost(@ModelAttribute Post post){
         User currentUser = userDao.getById(1L);
         post.setUser(currentUser);
-        emailService.prepareAndSend(post, post.getTitle(), post.getBody());
+        emailService.prepareAndSend(post, "New Post Created", "Title: " + post.getTitle() + "\nBody: " + post.getBody());
         postDao.save(post);
         return "redirect:/posts";
     }
