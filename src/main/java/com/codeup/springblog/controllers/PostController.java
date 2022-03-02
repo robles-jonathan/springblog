@@ -5,6 +5,7 @@ import com.codeup.springblog.models.User;
 import com.codeup.springblog.repositories.PostRepository;
 import com.codeup.springblog.repositories.UserRepository;
 import com.codeup.springblog.services.EmailService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -59,8 +60,13 @@ public class PostController {
     @GetMapping("/posts/{id}/edit")
     public String viewEditPostForm(@PathVariable Long id, Model model){
         Post oldPost = postDao.getById(id);
-        model.addAttribute("post", oldPost);
-        return "posts/edit";
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(oldPost.getUser().getId() == loggedInUser.getId()){
+            model.addAttribute("post", oldPost);
+            return "posts/edit";
+        } else {
+            return "redirect:/posts";
+        }
     }
 
     @PostMapping("/posts/{id}/edit")

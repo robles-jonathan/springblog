@@ -26,10 +26,20 @@
       <li class="nav-item">
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
       </li>
+      <li class="nav-item nav-link" sec:authorize="isAuthenticated()">
+        Welcome, <span th:text="${#authentication.principal.username}"></span>
+      </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+
+    <form th:action="@{/logout}" th:method="post" sec:authorize="isAuthenticated()">
+      <button class="btn-link btn" style="margin-top: 8px">Logout</button>
+    </form>
+    <form th:action="@{/login}" th:method="get" sec:authorize="!isAuthenticated()">
+      <button class="btn-link btn" style="margin-top: 8px">Login</button>
     </form>
   </div>
 </nav>
