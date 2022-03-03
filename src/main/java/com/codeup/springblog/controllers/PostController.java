@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.Path;
+
 
 @Controller
 public class PostController {
@@ -44,8 +46,8 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String createPost(@ModelAttribute Post post){
-        User currentUser = userDao.getById(1L);
-        post.setUser(currentUser);
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        post.setUser(loggedInUser);
         emailService.prepareAndSend(post, "New Post Created", "Title: " + post.getTitle() + "\nBody: " + post.getBody());
         postDao.save(post);
         return "redirect:/posts";
@@ -70,8 +72,12 @@ public class PostController {
     }
 
     @PostMapping("/posts/{id}/edit")
-    public String editPost(@ModelAttribute Post post){
-        postDao.save(post);
+    public String editPost(@ModelAttribute Post post, @PathVariable Long id) {
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (postDao.getById(id).getUser().getId() == loggedInUser.getId()) {
+            post.setUser(loggedInUser);
+            postDao.save(post);
+        }
         return "redirect:/posts";
     }
 
