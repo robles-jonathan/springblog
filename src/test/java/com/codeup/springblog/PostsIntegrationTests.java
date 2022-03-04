@@ -15,6 +15,7 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import javax.servlet.http.HttpSession;
 
@@ -85,6 +86,14 @@ public class PostsIntegrationTests {
 
     @Test
     public void testCreatePost() throws Exception {
+        // Testing without user login
+        this.mvc.perform(MockMvcRequestBuilders
+                        .post("/posts/create")
+                        .param("title", "Testing Post Functionality")
+                        .param("body", "Testing Post Functionality"))
+                .andExpect(status().isForbidden());
+
+        // Testing with user login
         // Makes a Post request to /posts/create and expect a redirection to the Post index page
         this.mvc.perform(post("/posts/create").with(csrf())
                         .session((MockHttpSession) httpSession)
@@ -106,11 +115,15 @@ public class PostsIntegrationTests {
 
     @Test
     public void testPostsIndex() throws Exception {
-        Post existingPost = postsDao.findAll().get(0);
+        List<Post> posts = postsDao.findAll();
         this.mvc.perform(get("/posts"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Posts")))
-                .andExpect(content().string(containsString(existingPost.getTitle())));
+                .andExpect(content().string(containsString("Posts")));
+        for (Post post : posts) {
+            this.mvc.perform(get("/posts"))
+                    .andExpect(content().string(containsString(post.getTitle())))
+                    .andExpect(content().string(containsString(post.getBody())));
+        }
     }
 
     @Test
